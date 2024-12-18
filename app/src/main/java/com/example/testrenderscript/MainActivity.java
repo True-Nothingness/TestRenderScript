@@ -7,6 +7,7 @@ import androidx.renderscript.Allocation;
 import androidx.renderscript.RenderScript;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,13 +47,16 @@ public class MainActivity extends AppCompatActivity {
         ImageView outJava = findViewById(R.id.displayoutjava);
         outJava.setImageBitmap(mBitmapOutJava);
 
+        TextView timeRS = findViewById(R.id.timeRS);
+        TextView timeJava = findViewById(R.id.timeJava);
         // RenderScript
         long t1 = System.nanoTime();
 
         createScript();
 
         long t2 = System.nanoTime();
-        Log.d(TAG, "RenderScript: " + (t2 - t1)/1000);
+        timeRS.setText("RenderScript: " + (t2 - t1)/1000 + " μs");
+
 
         // Java
         t1 = System.nanoTime();
@@ -81,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         // Apply modified pixels back to the output bitmap
         mBitmapOutJava.setPixels(pixels, 0, w, 0, 0, w, h);
         t2 = System.nanoTime();
-        Log.d(TAG, "Java: " + (t2 - t1)/1000);
+        timeJava.setText("Java: " + (t2 - t1)/1000 + " μs");
 
     }
 
